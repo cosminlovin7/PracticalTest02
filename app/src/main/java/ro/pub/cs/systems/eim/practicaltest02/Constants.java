@@ -7,4 +7,6 @@ public interface Constants {
     String COMM_TAG = "[COMMUNICATION THREAD]: ";
     String GET_METHOD = "GET";
     String POST_METHOD = "POST";
+    String HOST = "http://worldtimeapi.org/api/timezone/Europe/Bucharest";
+    Integer expiringSeconds = 10;
 }

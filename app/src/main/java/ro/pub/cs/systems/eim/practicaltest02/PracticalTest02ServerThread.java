@@ -5,11 +5,14 @@ import android.util.Log;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PracticalTest02ServerThread extends Thread {
     private ServerSocket serverSocket;
     private final Integer serverPort;
     private boolean isRunning;
+    private Map<String, EntryInfo> hashMap = new ConcurrentHashMap<>();
 
     public PracticalTest02ServerThread(final Integer serverPort) {
         this.serverPort = serverPort;
@@ -27,7 +30,7 @@ public class PracticalTest02ServerThread extends Thread {
                 Socket clientSocket = serverSocket.accept();
                 Log.d(Constants.TAG, Constants.SERVER_TAG + "New client connected! Establishing communication channel...");
 
-                new PracticalTest02CommunicationThread(clientSocket).start();
+                new PracticalTest02CommunicationThread(clientSocket, hashMap).start();
             }
         } catch (IOException e) {
             Log.d(Constants.TAG, Constants.SERVER_TAG + "Server socket closed. Server shutting down...");

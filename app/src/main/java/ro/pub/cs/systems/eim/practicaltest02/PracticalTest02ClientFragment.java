@@ -33,10 +33,18 @@ public class PracticalTest02ClientFragment extends Fragment {
                     return;
                 }
 
-                PracticalTest02AsyncClientHandler practicalTest02AsyncClientHandler = new PracticalTest02AsyncClientHandler();
+                if (keyEditText.getText().toString().equalsIgnoreCase("")) {
+                    Toast.makeText(getContext(), "Please, provide a key.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                PracticalTest02AsyncClientHandler practicalTest02AsyncClientHandler = new PracticalTest02AsyncClientHandler(clientResultTextView);
                 practicalTest02AsyncClientHandler.execute(
                         serverAddressEditText.getText().toString(),
-                        serverPortEditText.getText().toString()
+                        serverPortEditText.getText().toString(),
+                        Constants.GET_METHOD,
+                        keyEditText.getText().toString()
+
                 );
             } else if (buttonId == R.id.post_button) {
                 if (serverAddressEditText.getText().toString().equalsIgnoreCase("")) {
@@ -58,6 +66,15 @@ public class PracticalTest02ClientFragment extends Fragment {
                     Toast.makeText(getContext(), "Please, provide a value.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                PracticalTest02AsyncClientHandler practicalTest02AsyncClientHandler = new PracticalTest02AsyncClientHandler(clientResultTextView);
+                practicalTest02AsyncClientHandler.execute(
+                        serverAddressEditText.getText().toString(),
+                        serverPortEditText.getText().toString(),
+                        Constants.POST_METHOD,
+                        keyEditText.getText().toString(),
+                        valueEditText.getText().toString()
+                );
             }
         }
     }
@@ -66,6 +83,7 @@ public class PracticalTest02ClientFragment extends Fragment {
     private EditText serverPortEditText;
     private EditText keyEditText;
     private EditText valueEditText;
+    private TextView clientResultTextView;
     private Button getButton;
     private Button postButton;
 
@@ -81,6 +99,9 @@ public class PracticalTest02ClientFragment extends Fragment {
 
         serverAddressEditText = getActivity().findViewById(R.id.cserver_address_edittext);
         serverPortEditText = getActivity().findViewById(R.id.cserver_port_edittext);
+        keyEditText = getActivity().findViewById(R.id.key_edittext);
+        valueEditText = getActivity().findViewById(R.id.value_edittext);
+        clientResultTextView = getActivity().findViewById(R.id.client_result_textview);
         getButton = getActivity().findViewById(R.id.get_button);
         postButton = getActivity().findViewById(R.id.post_button);
 
