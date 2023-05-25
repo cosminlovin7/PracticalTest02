@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PracticalTest02</string>
+    <string-array name="method_type">
+        <item>GET</item>
+        <item>PUT</item>
+    </string-array>
+</resources>
